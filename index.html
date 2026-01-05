@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sudipta Chakraborty | Finance Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* --- CSS STYLES --- */
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text: #334155;
+            --nav-bg: rgba(15, 23, 42, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', sans-serif; scroll-behavior: smooth; }
+        body { background-color: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
+
+        /* Navigation */
+        nav {
+            position: fixed; top: 0; width: 100%; background: var(--nav-bg); padding: 1rem 5%;
+            display: flex; justify-content: space-between; align-items: center; z-index: 1000;
+            backdrop-filter: blur(10px); box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .logo { color: white; font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { color: #cbd5e1; text-decoration: none; font-weight: 500; transition: color 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: var(--accent); }
+
+        /* Hero Section */
+        header {
+            background-color: var(--primary);
+            /* Looks for background.jpg */
+            background-image: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+            min-height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            padding: 80px 10% 0;
+            position: relative;
+        }
+
+        .hero-container {
+            display: flex; align-items: center; justify-content: space-between;
+            width: 100%; max-width: 1200px; gap: 50px; flex-wrap: wrap-reverse;
+        }
+
+        .hero-text { flex: 1; min-width: 300px; animation: slideRight 1s ease-out; }
+        .hero-text h3 { color: var(--accent); font-size: 1.2rem; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 2px; }
+        .hero-text h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 20px; }
+        .hero-text .typing-text { font-size: 1.3rem; color: #94a3b8; margin-bottom: 30px; }
+
+        /* Contact Details (Text Version) */
+        .contact-details { display: flex; flex-direction: column; gap: 15px; margin-bottom: 40px; }
+        .contact-item { display: flex; align-items: center; gap: 15px; font-size: 1.1rem; color: #e2e8f0; }
+        .contact-item i { color: var(--accent); font-size: 1.2rem; width: 25px; }
+        .contact-item a { color: #e2e8f0; text-decoration: none; transition: color 0.3s; }
+        .contact-item a:hover { color: var(--accent); }
+
+        .enter-btn {
+            background-color: var(--accent); color: white; border: none; padding: 15px 40px;
+            font-size: 1rem; border-radius: 50px; cursor: pointer; transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4); display: inline-flex; align-items: center; gap: 10px; text-decoration: none;
+        }
+        .enter-btn:hover { background-color: #2563eb; transform: translateY(-3px); }
+
+        .hero-image { flex: 1; display: flex; justify-content: center; min-width: 300px; animation: zoomIn 1s ease-out; }
+        
+        .img-box {
+            width: 350px; height: 350px; border-radius: 50%;
+            display: flex; justify-content: center; align-items: center;
+            border: 4px solid var(--accent);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            overflow: hidden; background: #fff;
+        }
+        
+        .img-box img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* Content Sections */
+        .container { max-width: 1100px; margin: 0 auto; padding: 4rem 2rem; display: none; opacity: 0; transition: opacity 1.5s ease; }
+        .section-title { border-left: 5px solid var(--accent); padding-left: 15px; margin: 4rem 0 1.5rem 0; font-size: 1.8rem; color: var(--primary); }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+
+        .card {
+            background: var(--card-bg); border-radius: 12px; padding: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: transform 0.2s;
+            display: flex; flex-direction: column; justify-content: space-between; border-top: 3px solid transparent;
+        }
+        .card:hover { transform: translateY(-5px); box-shadow: 0 15px 30px rgba(0,0,0,0.1); border-top: 3px solid var(--accent); }
+        .card h3 { color: var(--primary); margin-bottom: 5px; font-size: 1.2rem; }
+        .card .subtitle { color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; }
+        .card .preview-text { font-size: 0.95rem; color: #64748b; margin-bottom: 20px; line-height: 1.6; }
+
+        .btn-details {
+            background-color: transparent; color: var(--accent); border: 2px solid var(--accent);
+            padding: 8px 20px; border-radius: 6px; cursor: pointer; align-self: flex-start; transition: all 0.3s; font-weight: 600;
+        }
+        .btn-details:hover { background-color: var(--accent); color: white; }
+
+        /* Tabs & Tags */
+        .tab-header { display: flex; border-bottom: 2px solid #e2e8f0; margin-bottom: 20px; gap: 20px; }
+        .tab-btn { background: none; border: none; padding: 10px 5px; font-size: 1rem; color: #94a3b8; cursor: pointer; border-bottom: 3px solid transparent; transition: all 0.3s; font-weight: 600; }
+        .tab-btn:hover, .tab-btn.active { color: var(--accent); }
+        .tab-btn.active { border-bottom: 3px solid var(--accent); }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-out; }
+        .tab-content.active-content { display: block; }
+
+        .tags { display: flex; flex-wrap: wrap; gap: 10px; }
+        .tag { background: #e2e8f0; color: var(--primary); padding: 8px 14px; border-radius: 6px; font-size: 0.9rem; font-weight: 600; }
+        .cert-tag { background: #dbeafe; color: #1e40af; }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.8); display: none; justify-content: center; align-items: center; z-index: 2000; backdrop-filter: blur(8px);
+        }
+        .modal-content {
+            background: white; width: 90%; max-width: 650px; border-radius: 20px; padding: 2.5rem; position: relative; animation: popIn 0.3s; max-height: 90vh; overflow-y: auto;
+        }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 1.8rem; cursor: pointer; color: #cbd5e1; }
+        .close-btn:hover { color: var(--primary); }
+
+        @keyframes slideRight { from { opacity: 0; transform: translateX(-50px); } to { opacity: 1; transform: translateX(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.5); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes popIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
+
+        @media (max-width: 768px) {
+            .hero-container { flex-direction: column-reverse; text-align: center; }
+            .hero-text h1 { font-size: 2.5rem; }
+            .contact-details { align-items: center; }
+            .nav-links { display: none; }
+            .img-box { width: 250px; height: 250px; margin: 0 auto 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Sudipta.</div>
+        <div class="nav-links">
+            <a onclick="revealPortfolio('about')">About</a>
+            <a onclick="revealPortfolio('experience-grid')">Experience</a>
+            <a onclick="revealPortfolio('project-grid')">Projects</a>
+            <a onclick="revealPortfolio('certifications-grid')">Certifications</a>
+        </div>
+    </nav>
+
+    <header id="hero-header">
+        <div class="hero-container">
+            <div class="hero-text">
+                <h3>Hello, I'm</h3>
+                <h1>Sudipta<br>Chakraborty</h1>
+                <p class="typing-text">MBA (Finance) & Compliance Specialist</p>
+                
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:sudiptachakrabortydmr@gmail.com">sudiptachakrabortydmr@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:6009404573">+91 60094 04573</a>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/sudipta-chakraborty-b06225333" target="_blank">LinkedIn Profile</a>
+                    </div>
+                </div>
+
+                <button class="enter-btn" id="reveal-btn">View Portfolio <i class="fas fa-arrow-down"></i></button>
+            </div>
+            <div class="hero-image">
+                <div class="img-box">
+                    <img src="profile.jpg" alt="Sudipta Chakraborty" onerror="this.src='https://via.placeholder.com/350?text=Sudipta';">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container" id="main-content">
+        <h2 class="section-title" id="about"><i class="fas fa-user"></i> About Me</h2>
+        <div class="card">
+            <p style="font-size: 1.05rem; color: #475569; line-height: 1.8;">
+                I am an MBA (Finance) candidate with hands-on experience in taxation, client communication, and financial auditing.
+                Skilled in Tally Prime, Excel, and Power BI, I focus on simplifying financial processes and delivering compliance-driven
+                solutions that improve efficiency and client satisfaction.
+            </p>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-eye"></i> Vision</h2>
+        <div class="card">
+            <p style="font-size: 1.05rem; color: #475569; line-height: 1.8;">
+                To build a career in finance and consulting by applying practical skills in taxation and
+                financial analysis. I aim to use tools like Excel, Power BI, and Tally to support
+                data-driven decision-making, helping businesses stay compliant, improve
+                efficiency, and achieve sustainable growth.
+            </p>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-briefcase"></i> Work Experience</h2>
+        <div class="grid" id="experience-grid"></div>
+
+        <h2 class="section-title"><i class="fas fa-project-diagram"></i> Key Projects</h2>
+        <div class="grid" id="project-grid"></div>
+
+        <h2 class="section-title"><i class="fas fa-graduation-cap"></i> Education</h2>
+        <div class="grid" id="education-grid"></div>
+
+        <h2 class="section-title"><i class="fas fa-chart-line"></i> Business & Financial Markets Projects</h2>
+        <div class="grid" id="financial-projects-grid"></div>
+
+        <h2 class="section-title"><i class="fas fa-tools"></i> Skills</h2>
+        <div class="card">
+            <div class="tab-header">
+                <button class="tab-btn active" onclick="openTab(event, 'tech')">Technical Skills</button>
+                <button class="tab-btn" onclick="openTab(event, 'soft')">Soft Skills</button>
+            </div>
+            <div id="tech" class="tab-content active-content"><div class="tags" id="tech-skills-list"></div></div>
+            <div id="soft" class="tab-content"><div class="tags" id="soft-skills-list"></div></div>
+        </div>
+
+        <h2 class="section-title"><i class="fas fa-certificate"></i> Certifications</h2>
+        <div class="grid" id="certifications-grid"></div>
+    </div>
+
+    <div class="modal-overlay" id="info-modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal()">&times;</span>
+            <div style="margin-bottom: 1.5rem; border-bottom: 1px solid #eee; padding-bottom: 1rem;">
+                <h2 id="modal-title" style="color: var(--primary); margin-bottom: 5px;">Title</h2>
+                <p id="modal-subtitle" style="color: var(--accent); font-weight: bold; font-size: 1.1rem;">Subtitle</p>
+            </div>
+            <div id="modal-body" style="color: #475569; line-height: 1.8;"></div>
+        </div>
+    </div>
+
+    <script>
+        // --- AUTO BACKGROUND CHECK ---
+        const header = document.getElementById('hero-header');
+        const img = new Image();
+        img.src = 'background.jpg';
+        img.onerror = function() {
+            // If background.jpg fails, try background.jpg.jpg
+            const img2 = new Image();
+            img2.src = 'background.jpg.jpg';
+            img2.onload = function() {
+                header.style.backgroundImage = `linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.9)), url('background.jpg.jpg')`;
+            }
+        }
+
+        // --- DATA ---
+        const experienceData = [
+            { title: "Associate Intern", company: "Elangovan and Associates LLP", date: "May 2025 - Jun 2025", summary: "Handled income tax filing and Tally Prime accounting.", details: ["Assisted in filing income tax for individuals and firms, including computation and Form 26AS matching.", "Maintained client accounts in Tally, executed bank reconciliations, and prepared depreciation schedules for 15 clients.", "Developed client communication skills and task prioritization."] },
+            { title: "Public Relationship Intern", company: "Public Sector (Reference)", date: "Feb 2024 - Mar 2024", summary: "Customer onboarding and compliance documentation.", details: ["Assisted in customer onboarding and documentation.", "Conducted compliance checks.", "Managed relationship management with the branch team."] }
+        ];
+        const projectData = [
+            { title: "Internal Audit Impact", org: "Academic Research", date: "2025", summary: "Study on financial risk management.", details: ["Studied how internal audit practices strengthen compliance.", "Analyzed methods to reduce financial risks in corporate settings."] },
+            { title: "Service Quality Assessment", org: "Ujjivan Small Finance Bank", date: "May 2024", summary: "Analyzed feedback from 100+ respondents.", details: ["Collected and analyzed structured feedback from 100+ respondents.", "Evaluated performance against customer expectations.", "Performed gap analysis to identify discrepancies and improve operational efficiency."] }
+        ];
+        const educationData = [
+            { degree: "MBA in Finance", school: "Parul University, Vadodara", year: "Pursuing (Exp. 2026)", grade: "CGPA: 6.89", details: "Specilization in Finance" },
+            { degree: "B.Com (Hons) in Accountancy", school: "Dharmanagar Govt Degree College", year: "2024", grade: "50.08%", details: "Specialized in Accountancy." },
+            { degree: "Class XII", school: "Padmapur HS(+2) Stage School", year: "2019", grade: "72.20%", details: "Higher Secondary Education." },
+            { degree: "Class X", school: "Bir Bikram Institution", year: "2017", grade: "67.00%", details: "Secondary Education." }
+        ];
+        
+        // NEW FINANCIAL PROJECTS DATA
+        const financialProjectsData = [
+            {
+                title: "Analysis of Eight Key Financial Sectors",
+                type: "Academic Analysis",
+                details: "A concise study of key business and financial sectors, highlighting investment options, merits, and risks for informed decision-making."
+            },
+            {
+                title: "Business Markets: Differences & Stages",
+                type: "Market Overview",
+                details: "A structured overview of business markets, focusing on key differences, major participants, and the stages involved in market operations and development."
+            }
+        ];
+
+        const certificationsData = [
+            { title: "Financial Literacy Series Part 1", issuer: "NISM", details: "Covered essential financial concepts and principles." },
+            { title: "National Financial Literacy Quiz", issuer: "NISM & SEBI", details: "Demonstrated foundational knowledge in financial concepts and markets." },
+            { title: "SEBI Investor Awareness Test", issuer: "SEBI & NISM", year: "2025", details: "Demonstrated proficiency in investor rights, financial literacy, and regulatory compliance." }
+        ];
+        const techSkills = ["Tally Prime", "Power BI", "MS Office", "Financial Analysis", "Taxation (ITR/GST)", "Excel"];
+        const softSkills = ["Client Communication", "Time Management", "Interpersonal Skills", "Learning Attitude"];
+
+        // --- RENDER LOGIC ---
+        function revealPortfolio(targetId) {
+            const content = document.getElementById('main-content');
+            if(content.style.display !== 'block') {
+                content.style.display = 'block';
+                setTimeout(() => {
+                    content.style.opacity = '1';
+                    document.getElementById(targetId || 'main-content').scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }, 50);
+            } else {
+                document.getElementById(targetId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+        document.getElementById('reveal-btn').addEventListener('click', () => revealPortfolio('main-content'));
+
+        function openTab(evt, tabName) {
+            const tabcontent = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabcontent.length; i++) { tabcontent[i].style.display = "none"; tabcontent[i].classList.remove("active-content"); }
+            const tablinks = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tablinks.length; i++) { tablinks[i].classList.remove("active"); }
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.classList.add("active");
+        }
+
+        function renderCards(data, containerId, type) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = ''; 
+            data.forEach((item, index) => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                // Adapters for different data types
+                const mainTitle = item.title || item.degree || 'Untitled';
+                const subTitle = item.company || item.org || item.school || item.issuer || item.type || '';
+                const dateInfo = item.date || item.year || '';
+                let summary = item.summary || item.grade || (typeof item.details === 'string' ? item.details : '');
+                
+                card.innerHTML = `<div><h3>${mainTitle}</h3><div class="subtitle">${subTitle} ${dateInfo ? '| ' + dateInfo : ''}</div><p class="preview-text">${summary}</p></div><button class="btn-details" onclick="openModal('${type}', ${index})">Know More</button>`;
+                container.appendChild(card);
+            });
+        }
+        function renderTags(list, containerId) {
+            const container = document.getElementById(containerId);
+            list.forEach(item => { const tag = document.createElement('span'); tag.className = 'tag'; tag.innerText = item; container.appendChild(tag); });
+        }
+
+        renderCards(experienceData, 'experience-grid', 'exp');
+        renderCards(projectData, 'project-grid', 'proj');
+        renderCards(educationData, 'education-grid', 'edu');
+        renderCards(financialProjectsData, 'financial-projects-grid', 'fin-proj'); // Render New Section
+        renderCards(certificationsData, 'certifications-grid', 'cert');
+        
+        renderTags(techSkills, 'tech-skills-list');
+        renderTags(softSkills, 'soft-skills-list');
+
+        const modal = document.getElementById('info-modal');
+        const mTitle = document.getElementById('modal-title');
+        const mSub = document.getElementById('modal-subtitle');
+        const mBody = document.getElementById('modal-body');
+
+        function openModal(type, index) {
+            let item, bodyContent = '';
+            if (type === 'exp') { item = experienceData[index]; mTitle.innerText = item.title; mSub.innerText = item.company; bodyContent = `<ul>${item.details.map(d => `<li>${d}</li>`).join('')}</ul>`; }
+            else if (type === 'proj') { item = projectData[index]; mTitle.innerText = item.title; mSub.innerText = item.org; bodyContent = `<ul>${item.details.map(d => `<li>${d}</li>`).join('')}</ul>`; }
+            else if (type === 'edu') { item = educationData[index]; mTitle.innerText = item.degree; mSub.innerText = item.school; bodyContent = `<p><strong>Year:</strong> ${item.year}</p><p><strong>Grade:</strong> ${item.grade}</p><p>${item.details}</p>`; }
+            else if (type === 'cert') { item = certificationsData[index]; mTitle.innerText = item.title; mSub.innerText = item.issuer; bodyContent = `<p>${item.details}</p>`; }
+            else if (type === 'fin-proj') { // Modal Logic for New Section
+                item = financialProjectsData[index];
+                mTitle.innerText = item.title;
+                mSub.innerText = item.type;
+                bodyContent = `<p>${item.details}</p>`;
+            }
+            mBody.innerHTML = bodyContent;
+            modal.style.display = 'flex';
+        }
+        function closeModal() { modal.style.display = 'none'; }
+        window.onclick = function(event) { if (event.target == modal) closeModal(); }
+    </script>
+</body>
+</html>
